@@ -27,7 +27,7 @@ function increment() {
 function decrement() {
   const current = store.getState().counter;
   // you can choose the name of the final action dispatched by redux
-  store.setState({counter: current + 1}, 'DECREMENT');
+  store.setState({counter: current - 1}, 'DECREMENT');
 }
 
 // ...
