@@ -8,6 +8,8 @@ Simplux is a simple state container with no indirection, no magic. It is built w
 
 ## Usage
 
+(You need redux if you don't have because it's a peer dependency : `npm install --save redux`)
+
 `npm install --save simplux`
 
 To understand, nothing better than a classical example : the counter
@@ -20,29 +22,29 @@ const store = createStore(initialState);
 
 function increment() {
   const current = store.getState().counter;
-  this.setState({counter: current + 1});
+  store.setState({counter: current + 1});
 }
 function decrement() {
   const current = store.getState().counter;
   // you can choose the name of the final action dispatched by redux
-  this.setState({counter: current + 1}, 'DECREMENT'); 
+  store.setState({counter: current + 1}, 'DECREMENT');
 }
 
-// ... 
+// ...
 
 increment(); // { counter: 1 }
 increment(); // { counter: 2 }
 decrement(); // { counter: 1 }
-``` 
+```
 
-With React, use need to add `npm install --save react-redux`
+To use with React, you need to add `npm install --save react-redux`
 
 ```js
 import {increment, decrement} from './actions'; // functions described above
 import store from './store'; // store created by createStore
 import {Provider, connect} from 'react-redux';
 
-// this component is just a dumb stateless generical counter for rendering
+// CounterDumb is just a dumb stateless generic counter for rendering
 const CounterDumb = (props) => (
   <div>
     <button onClick={props.onClickMinus}> - </button>
@@ -51,32 +53,32 @@ const CounterDumb = (props) => (
   </div>
 );
 
-// This component is stateless too but know the controller, it knows "increment" & "decrement". 
+// CounterControlled is stateless too but knows the controller, it knows "increment" & "decrement".
 // (NB : you can also map this in mapDispatchToProps arg of the connect function)
 const CounterControlled = (props) => (
-  <CounterDumb 
-    value={props.value} 
-    onClickMinus={decrement} 
+  <CounterDumb
+    value={props.value}
+    onClickMinus={decrement}
     onClickPlus={increment}
     />
 );
 
 /*
 * Don't do over-engineering. You don't need to separate CounterDumb and CounterControlled if
-* it is not necessary, it is juste an example.
+* it is not necessary, it is just an example.
 *  const Counter = (props) => (
 *   <div>
 *     <button onClick={decrement}> - </button>
 *     {props.value}
 *     <button onClick={increment}> + </button>
 *   </div>
-* ); is fine !!
-* 
+* ); is fine too !!
+*
 */
 
 const CounterContainer = connect(
   (state) => ({value: state.counter}), // mapsStateToProps
-)(CounterDumb);
+)(CounterControlled);
 
 render(
   <Provider store={store.reduxStore}>
@@ -86,3 +88,30 @@ render(
 );
 ```
 
+## Api
+
+* `createStore(initialState: State, reduxEnhancer = undefined): Store<State>`
+
+Create the store and return it. The first parameter is mandatory and needs to be a plain Object. The second parameter is optional and is used when creating the redux internal store, please refer to the redux documentation if you want more information.
+
+* `getState(): State`
+
+Retrieve the current state
+
+* `setState(newState: $Shape<State>, reduxAction: string | Object = 'SET_STATE'): void`
+
+Set the new current state. To mimic the `React.setState` behavior, the newState parameter could be an object containing only the keys to update (but it's juste a simple merge). For example :
+
+```
+// suppose your current state is {x: 1, y: 2}
+
+setState({x: 3}); // your state is now {x: 3, y: 2}
+```
+
+Note : The new state is a new Object (new reference) so you can use the lib with immutability pattern.
+
+The second parameter reduxAction is optional. You can specify the redux action that will be dispatched by the redux internal store. This can be useful if you have defined or want to define specifics behaviors with enhancers (middlewares) or for your tools (Redux Devtools, logging, ..). You can give a string or a plain Object.
+
+* `reduxStore`
+
+The internal redux store
