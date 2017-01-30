@@ -1,7 +1,7 @@
 {
-  "name": "simplux",
-  "version": "1.0.0",
-  "description": "Simplux is a simple state container with no indirection, no magic. It is built with [Redux](https://github.com/reactjs/redux) so you can reuse all the middlewares / all the tools you are used to.",
+  "name": "redux-simplux",
+  "version": "1.0.1",
+  "description": "redux-simplux is a simple state container with no indirection, no magic. It is built on [Redux](https://github.com/reactjs/redux) so you can reuse all the middlewares / all the tools you are used to.",
   "main": "./lib/index.js",
   "dependencies": {},
   "devDependencies": {

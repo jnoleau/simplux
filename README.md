@@ -1,6 +1,6 @@
-# Simplux
+# Simplux (aka redux-simplux)
 
-Simplux is a simple state container with no indirection, no magic. It is built with [Redux](https://github.com/reactjs/redux) so you can reuse all the middlewares / all the tools you are used to.
+Simplux is a simple state container with no indirection, no magic. It is built on [Redux](https://github.com/reactjs/redux) so you can reuse all the middlewares / all the tools you are used to.
 
 ![simplux](https://cloud.githubusercontent.com/assets/1775047/22173939/225879b8-dfd1-11e6-8ffb-783020543590.png)
 
@@ -10,12 +10,12 @@ Simplux is a simple state container with no indirection, no magic. It is built w
 
 (You need redux if you don't have because it's a peer dependency : `npm install --save redux`)
 
-`npm install --save simplux`
+`npm install --save redux-simplux`
 
 To understand, nothing better than a classical example : the counter
 
 ```js
-import { createStore } from simplux;
+import { createStore } from 'redux-simplux';
 
 const initialState = { counter: 0 };
 const store = createStore(initialState);
