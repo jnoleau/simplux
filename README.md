@@ -1,10 +1,10 @@
-# Simplux (aka redux-simplux)
+# Simplux ( redux-simplux )
 
 Simplux is a simple state container with no indirection, no magic. It is built on [Redux](https://github.com/reactjs/redux) so you can reuse all the middlewares / all the tools you are used to.
 
 ![simplux](https://cloud.githubusercontent.com/assets/1775047/22173939/225879b8-dfd1-11e6-8ffb-783020543590.png)
 
-**Before proceeding further**, you should read this article to understand what this lib is solving.
+**Before proceeding further**, you should read [this article](https://jnoleau.github.io/cocoweet/The-state/) to understand what this lib is solving.
 
 ## Usage
 
@@ -100,7 +100,7 @@ Retrieve the current state
 
 * `setState(newState: $Shape<State>, reduxAction: string | Object = 'SET_STATE'): void`
 
-Set the new current state. To mimic the `React.setState` behavior, the newState parameter could be an object containing only the keys to update (but it's juste a simple merge). For example :
+Set the new current state. To mimic the `React.setState` behavior, the newState parameter could be an object containing only the keys to update (but it's just a simple merge). For example :
 
 ```
 // suppose your current state is {x: 1, y: 2}
@@ -108,7 +108,7 @@ Set the new current state. To mimic the `React.setState` behavior, the newState 
 setState({x: 3}); // your state is now {x: 3, y: 2}
 ```
 
-Note : The new state is a new Object (new reference) so you can use the lib with immutability pattern.
+*Note : The new state is a new Object (new reference) so you can use the lib with immutability pattern.*
 
 The second parameter reduxAction is optional. You can specify the redux action that will be dispatched by the redux internal store. This can be useful if you have defined or want to define specifics behaviors with enhancers (middlewares) or for your tools (Redux Devtools, logging, ..). You can give a string or a plain Object.
 
